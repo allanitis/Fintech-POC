@@ -97,7 +97,7 @@
         "filePath": "Fintech-POC/Examples/CurrencyCloud_Authentication.py",
         "code": "import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.body)\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
-          "runtime": "python2.7",
+          "runtime": "python3.6",
           "handler": "handler",
           "timeout": 60,
           "memory": 128,
@@ -169,7 +169,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/myCurrencyConversion.py",
-        "code": "def handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "import requests\n\ndef handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python3.6",
           "handler": "handler",
@@ -177,7 +177,15 @@
           "memory": 128,
           "layers": []
         },
-        "triggers": []
+        "triggers": [],
+        "testCases": {
+          "7c115a9b-ea18-4d6c-a132-9350da1fe117": {
+            "id": "7c115a9b-ea18-4d6c-a132-9350da1fe117",
+            "name": "NewTest",
+            "functionId": "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
       }
     },
     "deletedFiles": [],
@@ -269,7 +277,7 @@
         },
         "requests": {
           "name": "requests",
-          "version": "2.22",
+          "version": "2.22.0",
           "dev": false,
           "language": "python"
         }
@@ -283,7 +291,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1574604488076
+    "lastSave": 1574604715061
   },
   "VCS_STATE": {
     "provider": "GitHub",
