@@ -146,11 +146,7 @@
         "code": ""
       }
     },
-    "deletedFiles": [
-      "Fintech-POC/lambda.js",
-      "Fintech-POC/ExchangeRate.js",
-      "Fintech-POC/Examples/ExchangeRate.js"
-    ],
+    "deletedFiles": [],
     "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
     "openFiles": [
       "c98566c1-5b42-4384-9551-5cfa32d32fba",
@@ -238,7 +234,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1574603179756
+    "lastSave": 1574603328559
   },
   "VCS_STATE": {
     "provider": "GitHub",
