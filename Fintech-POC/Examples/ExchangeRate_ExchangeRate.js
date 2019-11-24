@@ -9,7 +9,7 @@ exports.handler = function (event, context, callback) {
         query: {},
         headers: { "Accept": "application/json" }
     }).then((response) => {
-        console.log(response.body.rates.AED)
+        console.log(response.body.rates)
     }).catch((err) => {
         // error handling goes here
     });

@@ -27,7 +27,8 @@
           "c98566c1-5b42-4384-9551-5cfa32d32fba",
           "d536c3e4-d05d-4aee-9bdc-9003bd596935",
           "19f2fa7c-2440-486c-af69-742dc9d28ec4",
-          "00689133-b2bd-4358-b8bd-1b19e7e4948a"
+          "00689133-b2bd-4358-b8bd-1b19e7e4948a",
+          "255396d6-9bc5-40e4-beff-5e5b78c1a6c8"
         ],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples"
@@ -41,7 +42,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/ExchangeRate_ExchangeRate.js",
-        "code": "let Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {\n\n    callback(null, { \"message\": \"Successfully executed\" });\n    Swagger.http({\n        url: `https://api.exchangerate-api.com/v4/latest/USD`,\n        method: 'get',\n        query: {},\n        headers: { \"Accept\": \"application/json\" }\n    }).then((response) => {\n        console.log(response.body.rates.AED)\n    }).catch((err) => {\n        // error handling goes here\n    });\n}",
+        "code": "let Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {\n\n    callback(null, { \"message\": \"Successfully executed\" });\n    Swagger.http({\n        url: `https://api.exchangerate-api.com/v4/latest/USD`,\n        method: 'get',\n        query: {},\n        headers: { \"Accept\": \"application/json\" }\n    }).then((response) => {\n        console.log(response.body.rates)\n    }).catch((err) => {\n        // error handling goes here\n    });\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -54,7 +55,15 @@
             "resourceName": "apigusEast1myNewAPImyEndpointget",
             "config": {}
           }
-        ]
+        ],
+        "testCases": {
+          "7272ece5-4fb6-4ee2-a973-ba2a7a989672": {
+            "id": "7272ece5-4fb6-4ee2-a973-ba2a7a989672",
+            "name": "myTestEvent",
+            "functionId": "c98566c1-5b42-4384-9551-5cfa32d32fba",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
       },
       "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61": {
         "id": "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
@@ -65,7 +74,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/myTestFile.py",
-        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=usd&sell_currency=eur&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=usd&sell_currency=eur&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -95,7 +104,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/CurrencyCloud_Authentication.py",
-        "code": "import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.body)\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "import boto3\nsns = boto3.client(\"sns\")\nimport requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.json())\n\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    try:\n        data = sns.publish(\n            Message='The CurrencyCloud Authentication token',\n            MessageAttributes=res.json(),\n            MessageStructure='String',\n            TopicArn='arn:aws:sns:us-east-1:270449036469:cc_auth_token'\n        )\n    except BaseException as e:\n        print(e)\n        raise(e)\n    ",
         "config": {
           "runtime": "python3.6",
           "handler": "handler",
@@ -139,7 +148,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/CurrencyCloud_Conversion.py",
-        "code": "from botocore.vendored import requests\nimport json\n\ndef handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n    try:\n        res = requests.post(\n            \"https://api.sandbox.transferwise.tech/accounts\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/json\"},\n            data=json.dumps({\"myreqest\": \"usd\"})\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n",
+        "code": "import requests\nimport json\n\ndef handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n    try:\n        res = requests.post(\n            \"https://api.sandbox.transferwise.tech/accounts\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/json\"},\n            data=json.dumps({\"myreqest\": \"usd\"})\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -186,6 +195,17 @@
             "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
           }
         }
+      },
+      "255396d6-9bc5-40e4-beff-5e5b78c1a6c8": {
+        "id": "255396d6-9bc5-40e4-beff-5e5b78c1a6c8",
+        "parent": "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+        "name": "CC_Auth.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Examples/CC_Auth.py",
+        "code": "import requests\ntry:\n    res = requests.post(\n        \"https://devapi.currencycloud.com/v2/authenticate/api\",\n        params={},\n        headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n        data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n    )\n    print(res.json())\nexcept BaseException as e:\n    # error handling goes here\n    raise(e)\n"
       }
     },
     "deletedFiles": [],
@@ -193,12 +213,12 @@
     "openFiles": [
       "c98566c1-5b42-4384-9551-5cfa32d32fba",
       "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
-      "00689133-b2bd-4358-b8bd-1b19e7e4948a",
-      "d536c3e4-d05d-4aee-9bdc-9003bd596935",
+      "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d",
       "e087146c-be97-4069-8f64-d3a256f48975",
-      "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d"
+      "00689133-b2bd-4358-b8bd-1b19e7e4948a",
+      "255396d6-9bc5-40e4-beff-5e5b78c1a6c8"
     ],
-    "currentFileId": "d536c3e4-d05d-4aee-9bdc-9003bd596935",
+    "currentFileId": "c98566c1-5b42-4384-9551-5cfa32d32fba",
     "resources": {
       "apigusEast1myNewAPImyEndpointget": {
         "name": "apigusEast1myNewAPImyEndpointget",
@@ -217,6 +237,19 @@
           "stageMode": 0,
           "stageName": "prod",
           "mode": 0
+        }
+      },
+      "snsusEast1ccauthtoken": {
+        "name": "snsusEast1ccauthtoken",
+        "type": "SNS",
+        "config": {
+          "topicMode": 0,
+          "topicName": "cc_auth_token",
+          "topicArn": "arn:aws:sns:us-east-1:270449036469:cc_auth_token",
+          "topicRegion": "us-east-1",
+          "snsType": 0,
+          "topicDisplayName": "CC-Auth",
+          "subscriptions": []
         }
       }
     },
@@ -280,6 +313,13 @@
           "version": "2.22.0",
           "dev": false,
           "language": "python"
+        },
+        "boto3": {
+          "name": "boto3",
+          "language": "python",
+          "version": "1.9.6",
+          "dev": true,
+          "notRemovable": false
         }
       }
     }
@@ -291,7 +331,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1574604715061
+    "lastSave": 1574613598945
   },
   "VCS_STATE": {
     "provider": "GitHub",
