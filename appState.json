@@ -1,0 +1,250 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "fca60464-7700-408a-a298-238aa2a05478": {
+        "id": "fca60464-7700-408a-a298-238aa2a05478",
+        "parent": null,
+        "name": "Fintech-POC",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+          "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
+          "b301ff8d-f2c0-4719-9432-cccd34384fab",
+          "e087146c-be97-4069-8f64-d3a256f48975"
+        ],
+        "isRemovable": false,
+        "filePath": "Fintech-POC"
+      },
+      "0c842cb9-9be6-4dac-813e-c3b4f243f412": {
+        "id": "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "Examples",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "c98566c1-5b42-4384-9551-5cfa32d32fba",
+          "d536c3e4-d05d-4aee-9bdc-9003bd596935",
+          "19f2fa7c-2440-486c-af69-742dc9d28ec4",
+          "00689133-b2bd-4358-b8bd-1b19e7e4948a"
+        ],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Examples"
+      },
+      "c98566c1-5b42-4384-9551-5cfa32d32fba": {
+        "id": "c98566c1-5b42-4384-9551-5cfa32d32fba",
+        "parent": "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+        "name": "ExchangeRate_ExchangeRate.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Examples/ExchangeRate_ExchangeRate.js",
+        "code": "let Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {\n\n    callback(null, { \"message\": \"Successfully executed\" });\n    Swagger.http({\n        url: `https://api.exchangerate-api.com/v4/latest/USD`,\n        method: 'get',\n        query: {},\n        headers: { \"Accept\": \"application/json\" }\n    }).then((response) => {\n        console.log(response.body.rates.AED)\n    }).catch((err) => {\n        // error handling goes here\n    });\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "apigusEast1myNewAPImyEndpointget",
+            "config": {}
+          }
+        ]
+      },
+      "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61": {
+        "id": "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "myTestFile.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/myTestFile.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=usd&sell_currency=eur&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python2.7",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      },
+      "b301ff8d-f2c0-4719-9432-cccd34384fab": {
+        "id": "b301ff8d-f2c0-4719-9432-cccd34384fab",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "__init__.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/__init__.py",
+        "code": ""
+      },
+      "d536c3e4-d05d-4aee-9bdc-9003bd596935": {
+        "id": "d536c3e4-d05d-4aee-9bdc-9003bd596935",
+        "parent": "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+        "name": "CurrencyCloud_Authentication.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Examples/CurrencyCloud_Authentication.py",
+        "code": "def handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python2.7",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      },
+      "19f2fa7c-2440-486c-af69-742dc9d28ec4": {
+        "id": "19f2fa7c-2440-486c-af69-742dc9d28ec4",
+        "parent": "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+        "name": "__init__.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Examples/__init__.py",
+        "code": ""
+      },
+      "00689133-b2bd-4358-b8bd-1b19e7e4948a": {
+        "id": "00689133-b2bd-4358-b8bd-1b19e7e4948a",
+        "parent": "0c842cb9-9be6-4dac-813e-c3b4f243f412",
+        "name": "CurrencyCloud_Conversion.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Examples/CurrencyCloud_Conversion.py",
+        "code": "from botocore.vendored import requests\nimport json\n\ndef handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n    try:\n        res = requests.post(\n            \"https://api.sandbox.transferwise.tech/accounts\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/json\"},\n            data=json.dumps({\"myreqest\": \"usd\"})\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n",
+        "config": {
+          "runtime": "python2.7",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      },
+      "e087146c-be97-4069-8f64-d3a256f48975": {
+        "id": "e087146c-be97-4069-8f64-d3a256f48975",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "myNewFile.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/myNewFile.py",
+        "code": ""
+      }
+    },
+    "deletedFiles": [
+      "Fintech-POC/lambda.js",
+      "Fintech-POC/ExchangeRate.js",
+      "Fintech-POC/Examples/ExchangeRate.js"
+    ],
+    "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
+    "openFiles": [
+      "c98566c1-5b42-4384-9551-5cfa32d32fba",
+      "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
+      "00689133-b2bd-4358-b8bd-1b19e7e4948a",
+      "d536c3e4-d05d-4aee-9bdc-9003bd596935",
+      "e087146c-be97-4069-8f64-d3a256f48975"
+    ],
+    "currentFileId": "c98566c1-5b42-4384-9551-5cfa32d32fba",
+    "resources": {
+      "apigusEast1myNewAPImyEndpointget": {
+        "name": "apigusEast1myNewAPImyEndpointget",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "myNewAPI",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "myEndpoint",
+          "resourcePath": "/myEndpoint",
+          "restMethod": "GET",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "prod",
+          "mode": 0
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      },
+      {
+        "lambdaId": "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "d536c3e4-d05d-4aee-9bdc-9003bd596935",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Examples",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "00689133-b2bd-4358-b8bd-1b19e7e4948a",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Examples",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "swagger-client": {
+          "name": "swagger-client",
+          "language": "javascript",
+          "version": "3.8.21",
+          "dev": false,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "Fintech-POC",
+    "projectDescription": "A POC with a Fintech",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1574603179756
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "Fintech-POC",
+      "url": "https://github.com/allanitis/Fintech-POC"
+    }
+  }
+}
