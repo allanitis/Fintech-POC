@@ -16,14 +16,3 @@ def handler(event, context):
         # error handling goes here
         raise(e)
     
-    try:
-        data = sns.publish(
-            Message='The CurrencyCloud Authentication token',
-            MessageAttributes=res.json(),
-            MessageStructure='String',
-            TopicArn='arn:aws:sns:us-east-1:270449036469:cc_auth_token'
-        )
-    except BaseException as e:
-        print(e)
-        raise(e)
-    

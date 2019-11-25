@@ -12,7 +12,8 @@
           "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
           "b301ff8d-f2c0-4719-9432-cccd34384fab",
           "e087146c-be97-4069-8f64-d3a256f48975",
-          "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d"
+          "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d",
+          "416a2575-713b-4c6c-b6e4-67151f2c627b"
         ],
         "isRemovable": false,
         "filePath": "Fintech-POC"
@@ -104,7 +105,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/CurrencyCloud_Authentication.py",
-        "code": "import boto3\nsns = boto3.client(\"sns\")\nimport requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.json())\n\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    try:\n        data = sns.publish(\n            Message='The CurrencyCloud Authentication token',\n            MessageAttributes=res.json(),\n            MessageStructure='String',\n            TopicArn='arn:aws:sns:us-east-1:270449036469:cc_auth_token'\n        )\n    except BaseException as e:\n        print(e)\n        raise(e)\n    ",
+        "code": "import boto3\nsns = boto3.client(\"sns\")\nimport requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.json())\n\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    ",
         "config": {
           "runtime": "python3.6",
           "handler": "handler",
@@ -116,9 +117,9 @@
         "testCases": {
           "f134bea5-1718-4a5d-af36-800101f35042": {
             "id": "f134bea5-1718-4a5d-af36-800101f35042",
-            "name": "Unnamed event",
+            "name": "GetAuthToken",
             "functionId": "d536c3e4-d05d-4aee-9bdc-9003bd596935",
-            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+            "event": "{}"
           },
           "f4f61d3d-ed7a-4e1d-9c8b-c5368ca52fa2": {
             "id": "f4f61d3d-ed7a-4e1d-9c8b-c5368ca52fa2",
@@ -206,19 +207,25 @@
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/CC_Auth.py",
         "code": "import requests\ntry:\n    res = requests.post(\n        \"https://devapi.currencycloud.com/v2/authenticate/api\",\n        params={},\n        headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n        data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n    )\n    print(res.json())\nexcept BaseException as e:\n    # error handling goes here\n    raise(e)\n"
+      },
+      "416a2575-713b-4c6c-b6e4-67151f2c627b": {
+        "id": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "Demo",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo"
       }
     },
     "deletedFiles": [],
     "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
     "openFiles": [
-      "c98566c1-5b42-4384-9551-5cfa32d32fba",
-      "ebb08f57-63b3-44bc-9e6f-6ed9f3b9bd61",
-      "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d",
-      "e087146c-be97-4069-8f64-d3a256f48975",
       "00689133-b2bd-4358-b8bd-1b19e7e4948a",
-      "255396d6-9bc5-40e4-beff-5e5b78c1a6c8"
+      "d536c3e4-d05d-4aee-9bdc-9003bd596935"
     ],
-    "currentFileId": "c98566c1-5b42-4384-9551-5cfa32d32fba",
+    "currentFileId": "d536c3e4-d05d-4aee-9bdc-9003bd596935",
     "resources": {
       "apigusEast1myNewAPImyEndpointget": {
         "name": "apigusEast1myNewAPImyEndpointget",
@@ -331,7 +338,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1574613598945
+    "lastSave": 1574678552598
   },
   "VCS_STATE": {
     "provider": "GitHub",
