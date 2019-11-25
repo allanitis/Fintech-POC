@@ -228,7 +228,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/v2_CC_Auth.py",
-        "code": "import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.json())\n\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    ",
+        "code": "import requests\nfrom botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        )\n        print(res.json())\n\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    ",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -253,7 +253,8 @@
       "00689133-b2bd-4358-b8bd-1b19e7e4948a",
       "d536c3e4-d05d-4aee-9bdc-9003bd596935",
       "255396d6-9bc5-40e4-beff-5e5b78c1a6c8",
-      "4588ae2d-fe3b-4411-8ae6-9a4bac5810de"
+      "4588ae2d-fe3b-4411-8ae6-9a4bac5810de",
+      "c98566c1-5b42-4384-9551-5cfa32d32fba"
     ],
     "currentFileId": "4588ae2d-fe3b-4411-8ae6-9a4bac5810de",
     "resources": {
@@ -359,12 +360,6 @@
           "version": "1.9.6",
           "dev": true,
           "notRemovable": false
-        },
-        "requests": {
-          "name": "requests",
-          "version": "2.22.0",
-          "dev": false,
-          "language": "python"
         }
       }
     }
@@ -376,7 +371,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1574678766665
+    "lastSave": 1574678949512
   },
   "VCS_STATE": {
     "provider": "GitHub",
