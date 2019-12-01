@@ -215,7 +215,10 @@
         "name": "Demo",
         "type": "DIRECTORY",
         "isDirectory": true,
-        "children": [],
+        "children": [
+          "274c30e5-e6ba-4d39-a77e-780c6a8c60fc",
+          "7d5b7f8b-6872-48fc-863c-9efa2272c964"
+        ],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo"
       },
@@ -245,6 +248,44 @@
             "event": "{}"
           }
         }
+      },
+      "274c30e5-e6ba-4d39-a77e-780c6a8c60fc": {
+        "id": "274c30e5-e6ba-4d39-a77e-780c6a8c60fc",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "myMarketDataPOC.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/myMarketDataPOC.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "ffa9366a-80bb-4baa-a44e-d7aae030a6ed": {
+            "id": "ffa9366a-80bb-4baa-a44e-d7aae030a6ed",
+            "name": "myTest",
+            "functionId": "274c30e5-e6ba-4d39-a77e-780c6a8c60fc",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "7d5b7f8b-6872-48fc-863c-9efa2272c964": {
+        "id": "7d5b7f8b-6872-48fc-863c-9efa2272c964",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "__init__.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/__init__.py",
+        "code": ""
       }
     },
     "deletedFiles": [],
@@ -254,9 +295,10 @@
       "d536c3e4-d05d-4aee-9bdc-9003bd596935",
       "255396d6-9bc5-40e4-beff-5e5b78c1a6c8",
       "4588ae2d-fe3b-4411-8ae6-9a4bac5810de",
-      "c98566c1-5b42-4384-9551-5cfa32d32fba"
+      "c98566c1-5b42-4384-9551-5cfa32d32fba",
+      "274c30e5-e6ba-4d39-a77e-780c6a8c60fc"
     ],
-    "currentFileId": "4588ae2d-fe3b-4411-8ae6-9a4bac5810de",
+    "currentFileId": "274c30e5-e6ba-4d39-a77e-780c6a8c60fc",
     "resources": {
       "apigusEast1myNewAPImyEndpointget": {
         "name": "apigusEast1myNewAPImyEndpointget",
@@ -343,6 +385,14 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "274c30e5-e6ba-4d39-a77e-780c6a8c60fc",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
       }
     ],
     "packageJSON": {
@@ -371,7 +421,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1574678949512
+    "lastSave": 1575212491624
   },
   "VCS_STATE": {
     "provider": "GitHub",
