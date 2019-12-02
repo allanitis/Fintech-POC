@@ -1,6 +1,6 @@
 import boto3
 sns = boto3.client("sns")
-import requests
+from botocore.vendored import requests
 
 def handler(event, context):
     try:
