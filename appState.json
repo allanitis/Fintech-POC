@@ -419,12 +419,6 @@
           "dev": true,
           "notRemovable": false
         },
-        "requests": {
-          "name": "requests",
-          "version": "2.22",
-          "dev": false,
-          "language": "python"
-        },
         "jsonlib": {
           "name": "jsonlib",
           "version": "1.6.1",
@@ -441,7 +435,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1575296502322
+    "lastSave": 1575296559268
   },
   "VCS_STATE": {
     "provider": "GitHub",
