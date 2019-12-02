@@ -430,12 +430,6 @@
           "version": "1.6.1",
           "dev": false,
           "language": "python"
-        },
-        "requests": {
-          "name": "requests",
-          "version": "2.21.0",
-          "dev": false,
-          "language": "python"
         }
       }
     }
@@ -447,7 +441,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1575296608153
+    "lastSave": 1575296761973
   },
   "VCS_STATE": {
     "provider": "GitHub",
