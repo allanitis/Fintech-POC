@@ -13,7 +13,8 @@
           "b301ff8d-f2c0-4719-9432-cccd34384fab",
           "e087146c-be97-4069-8f64-d3a256f48975",
           "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d",
-          "416a2575-713b-4c6c-b6e4-67151f2c627b"
+          "416a2575-713b-4c6c-b6e4-67151f2c627b",
+          "13fcd5a0-f108-4fc9-841c-b52d101c086f"
         ],
         "isRemovable": false,
         "filePath": "Fintech-POC"
@@ -62,6 +63,12 @@
           "7272ece5-4fb6-4ee2-a973-ba2a7a989672": {
             "id": "7272ece5-4fb6-4ee2-a973-ba2a7a989672",
             "name": "myTestEvent",
+            "functionId": "c98566c1-5b42-4384-9551-5cfa32d32fba",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          },
+          "05b54691-781c-44e5-8419-2e8b5bad21d2": {
+            "id": "05b54691-781c-44e5-8419-2e8b5bad21d2",
+            "name": "Unnamed event",
             "functionId": "c98566c1-5b42-4384-9551-5cfa32d32fba",
             "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
           }
@@ -150,7 +157,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/CurrencyCloud_Conversion.py",
-        "code": "# from botocore.vendored import requests\nimport requests\nimport json\n\ndef handler(event, context):\n\n    auth = \"87f6488cdf52cb641fbd9002f148c48d\"\n    \n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=usd&sell_currency=eur&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    ",
+        "code": "# from botocore.vendored import requests\nimport requests\nimport json\n\ndef handler(event, context):\n\n    auth = \"87f6488cdf52cb641fbd9002f148c48d\"\n    \n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=usd&sell_currency=eur&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    ",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -221,7 +228,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Examples/CC_Auth.py",
-        "code": "import requests\ntry:\n    res = requests.post(\n        \"https://devapi.currencycloud.com/v2/authenticate/api\",\n        params={},\n        headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n        data=\"login_id=matt%40fintechsandpit.com&api_key=e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n    )\n    print(res.json())\nexcept BaseException as e:\n    # error handling goes here\n    raise(e)\n"
+        "code": "import requests\ntry:\n    res = requests.post(\n        \"https://devapi.currencycloud.com/v2/authenticate/api\",\n        params={},\n        headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n        data=\"login_id=you%40youremail.com&api_key=e48a2102f318bab738e327s3f237f5g335231ffb0803d4d513a6b7a808f0d2c19\"\n    )\n    print(res.json())\nexcept BaseException as e:\n    raise(e)\n"
       },
       "416a2575-713b-4c6c-b6e4-67151f2c627b": {
         "id": "416a2575-713b-4c6c-b6e4-67151f2c627b",
@@ -231,7 +238,10 @@
         "isDirectory": true,
         "children": [
           "274c30e5-e6ba-4d39-a77e-780c6a8c60fc",
-          "7d5b7f8b-6872-48fc-863c-9efa2272c964"
+          "7d5b7f8b-6872-48fc-863c-9efa2272c964",
+          "ee0c7e67-b92d-434d-8dc7-7dbe03983ae6",
+          "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
+          "7ba41449-2113-4088-beaf-25b31ee97f2c"
         ],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo"
@@ -300,19 +310,107 @@
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo/__init__.py",
         "code": ""
+      },
+      "13fcd5a0-f108-4fc9-841c-b52d101c086f": {
+        "id": "13fcd5a0-f108-4fc9-841c-b52d101c086f",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "getMarketData.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/getMarketData.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "91af430c-76a3-4573-a26c-053614581cd3": {
+            "id": "91af430c-76a3-4573-a26c-053614581cd3",
+            "name": "Unnamed event",
+            "functionId": "13fcd5a0-f108-4fc9-841c-b52d101c086f",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "ee0c7e67-b92d-434d-8dc7-7dbe03983ae6": {
+        "id": "ee0c7e67-b92d-434d-8dc7-7dbe03983ae6",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "marketData.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/marketData.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      },
+      "f3810efe-7b0b-4ab8-9a67-acc179bc370e": {
+        "id": "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "TransferWise-Accounts.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/TransferWise-Accounts.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/personal\",\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      },
+      "7ba41449-2113-4088-beaf-25b31ee97f2c": {
+        "id": "7ba41449-2113-4088-beaf-25b31ee97f2c",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "myTransferWiseTest.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/myTransferWiseTest.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={},\n            headers={\"Authorization\":\"Bearer 10dfbb33-b207-4339-95a4-66193a761bc1\",\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "94ec0bc0-46a0-4057-b2ae-f79652d37d71": {
+            "id": "94ec0bc0-46a0-4057-b2ae-f79652d37d71",
+            "name": "getTWData",
+            "functionId": "7ba41449-2113-4088-beaf-25b31ee97f2c",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
       }
     },
     "deletedFiles": [],
     "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
     "openFiles": [
-      "00689133-b2bd-4358-b8bd-1b19e7e4948a",
-      "d536c3e4-d05d-4aee-9bdc-9003bd596935",
-      "255396d6-9bc5-40e4-beff-5e5b78c1a6c8",
-      "4588ae2d-fe3b-4411-8ae6-9a4bac5810de",
-      "c98566c1-5b42-4384-9551-5cfa32d32fba",
-      "274c30e5-e6ba-4d39-a77e-780c6a8c60fc"
+      "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
+      "7ba41449-2113-4088-beaf-25b31ee97f2c"
     ],
-    "currentFileId": "00689133-b2bd-4358-b8bd-1b19e7e4948a",
+    "currentFileId": "7ba41449-2113-4088-beaf-25b31ee97f2c",
     "resources": {
       "apigusEast1myNewAPImyEndpointget": {
         "name": "apigusEast1myNewAPImyEndpointget",
@@ -407,6 +505,38 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "13fcd5a0-f108-4fc9-841c-b52d101c086f",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "ee0c7e67-b92d-434d-8dc7-7dbe03983ae6",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "7ba41449-2113-4088-beaf-25b31ee97f2c",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
       }
     ],
     "packageJSON": {
@@ -441,7 +571,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1575296761973
+    "lastSave": 1575888904480
   },
   "VCS_STATE": {
     "provider": "GitHub",

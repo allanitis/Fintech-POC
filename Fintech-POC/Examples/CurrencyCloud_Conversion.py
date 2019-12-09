@@ -13,7 +13,7 @@ def handler(event, context):
             headers={"X-Auth-Token":auth,"Accept":"application/json","Content-Type":"application/x-www-form-urlencoded"},
             data="buy_currency=usd&sell_currency=eur&fixed_side=buy&amount=1000&term_agreement=true"
         )
-        # your code goes here
+        print(res.json())
     except BaseException as e:
         # error handling goes here
         raise(e)
