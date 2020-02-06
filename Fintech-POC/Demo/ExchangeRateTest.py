@@ -12,5 +12,6 @@ def handler(event, context):
     except BaseException as e:
         # error handling goes here
         raise(e)
+        
     
     return {"message": "Successfully executed"}

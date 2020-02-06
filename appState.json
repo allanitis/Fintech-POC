@@ -56,7 +56,7 @@
         },
         "triggers": [
           {
-            "resourceName": "apigusEast1myNewAPImyEndpointget",
+            "resourceName": "apigusEast1ratesusdget",
             "config": {}
           }
         ],
@@ -465,7 +465,7 @@
         },
         "triggers": [
           {
-            "resourceName": "apigusEast1transferwiseusdEurRateget",
+            "resourceName": "apigusEast1transferwiseusdRatesget",
             "config": {}
           }
         ],
@@ -498,7 +498,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo/ExchangeRateTest.py",
-        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n        return res.json()\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n        return res.json()\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n        \n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -531,25 +531,6 @@
     ],
     "currentFileId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
     "resources": {
-      "apigusEast1myNewAPImyEndpointget": {
-        "name": "apigusEast1myNewAPImyEndpointget",
-        "type": "API_GATEWAY",
-        "config": {
-          "selectedRegion": "us-east-1",
-          "apiMode": 0,
-          "apiName": "myNewAPI",
-          "endpointType": "EDGE",
-          "resourceMode": 0,
-          "resourceName": "myEndpoint",
-          "resourcePath": "/myEndpoint",
-          "restMethod": "GET",
-          "proxyIntegration": false,
-          "enableCORS": false,
-          "stageMode": 0,
-          "stageName": "prod",
-          "mode": 0
-        }
-      },
       "snsusEast1ccauthtoken": {
         "name": "snsusEast1ccauthtoken",
         "type": "SNS",
@@ -563,8 +544,8 @@
           "subscriptions": []
         }
       },
-      "apigusEast1transferwiseusdEurRateget": {
-        "name": "apigusEast1transferwiseusdEurRateget",
+      "apigusEast1transferwiseusdRatesget": {
+        "name": "apigusEast1transferwiseusdRatesget",
         "type": "API_GATEWAY",
         "config": {
           "selectedRegion": "us-east-1",
@@ -572,8 +553,27 @@
           "apiName": "transferwise",
           "endpointType": "EDGE",
           "resourceMode": 0,
-          "resourceName": "usd-eur-rate",
-          "resourcePath": "/usd-eur-rate",
+          "resourceName": "usd-rates",
+          "resourcePath": "/usd-rates",
+          "restMethod": "GET",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "dev",
+          "mode": 0
+        }
+      },
+      "apigusEast1ratesusdget": {
+        "name": "apigusEast1ratesusdget",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "rates",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "usd",
+          "resourcePath": "/usd",
           "restMethod": "GET",
           "proxyIntegration": false,
           "enableCORS": false,
@@ -733,7 +733,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1580988699616
+    "lastSave": 1580989276959
   },
   "VCS_STATE": {
     "provider": "GitHub",
