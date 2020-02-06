@@ -667,7 +667,7 @@
       "00663f9c-bc47-4189-a8a5-e7966489d2eb",
       "1f5c89f0-e14c-4347-bc0c-6a6290fab7b5"
     ],
-    "currentFileId": "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+    "currentFileId": "00663f9c-bc47-4189-a8a5-e7966489d2eb",
     "resources": {
       "snsusEast1ccauthtoken": {
         "name": "snsusEast1ccauthtoken",
@@ -898,7 +898,7 @@
         "editable": true
       },
       {
-        "lambdaId": "7abfd5b8-917b-4967-881d-295555c6dc5e",
+        "lambdaId": "all",
         "varKey": "CC_LOGIN",
         "varValue": null,
         "shouldPersist": false,
@@ -906,7 +906,7 @@
         "editable": true
       },
       {
-        "lambdaId": "7abfd5b8-917b-4967-881d-295555c6dc5e",
+        "lambdaId": "all",
         "varKey": "CC_KEY",
         "varValue": null,
         "shouldPersist": false,
@@ -954,7 +954,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1580991467665
+    "lastSave": 1580993552771
   },
   "VCS_STATE": {
     "provider": "GitHub",
