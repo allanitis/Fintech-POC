@@ -243,7 +243,8 @@
           "ee0c7e67-b92d-434d-8dc7-7dbe03983ae6",
           "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
           "7ba41449-2113-4088-beaf-25b31ee97f2c",
-          "b5594eae-d076-4035-a7d2-ccd21510bfbd"
+          "b5594eae-d076-4035-a7d2-ccd21510bfbd",
+          "cb69f748-02b6-44a7-828c-f1e9566d9482"
         ],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo"
@@ -464,7 +465,7 @@
         },
         "triggers": [
           {
-            "resourceName": "apigusEast1USDEURRateusdEurRateget",
+            "resourceName": "apigusEast1transferwiseusdEurRateget",
             "config": {}
           }
         ],
@@ -487,14 +488,48 @@
         "isRemovable": true,
         "filePath": "Fintech-POC/TransferWise/__init__.py",
         "code": ""
+      },
+      "cb69f748-02b6-44a7-828c-f1e9566d9482": {
+        "id": "cb69f748-02b6-44a7-828c-f1e9566d9482",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "ExchangeRateTest.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/ExchangeRateTest.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python2.7",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "4e4d4f63-6e64-4bd8-a33d-b90b8261529b": {
+            "id": "4e4d4f63-6e64-4bd8-a33d-b90b8261529b",
+            "name": "Unnamed event",
+            "functionId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          },
+          "2743fe7c-e747-40ed-b040-067e65b1f54f": {
+            "id": "2743fe7c-e747-40ed-b040-067e65b1f54f",
+            "name": "Unnamed event",
+            "functionId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
       }
     },
     "deletedFiles": [],
     "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
     "openFiles": [
-      "0d1043f5-42f6-4051-be2c-e795ecf7ddd1"
+      "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+      "cb69f748-02b6-44a7-828c-f1e9566d9482"
     ],
-    "currentFileId": "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+    "currentFileId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
     "resources": {
       "apigusEast1myNewAPImyEndpointget": {
         "name": "apigusEast1myNewAPImyEndpointget",
@@ -528,13 +563,13 @@
           "subscriptions": []
         }
       },
-      "apigusEast1USDEURRateusdEurRateget": {
-        "name": "apigusEast1USDEURRateusdEurRateget",
+      "apigusEast1transferwiseusdEurRateget": {
+        "name": "apigusEast1transferwiseusdEurRateget",
         "type": "API_GATEWAY",
         "config": {
           "selectedRegion": "us-east-1",
           "apiMode": 0,
-          "apiName": "USD-EUR-rate",
+          "apiName": "transferwise",
           "endpointType": "EDGE",
           "resourceMode": 0,
           "resourceName": "usd-eur-rate",
@@ -543,7 +578,7 @@
           "proxyIntegration": false,
           "enableCORS": false,
           "stageMode": 0,
-          "stageName": "prod",
+          "stageName": "dev",
           "mode": 0
         }
       }
@@ -656,6 +691,14 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
       }
     ],
     "packageJSON": {
@@ -690,7 +733,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1580978855389
+    "lastSave": 1580988601155
   },
   "VCS_STATE": {
     "provider": "GitHub",
