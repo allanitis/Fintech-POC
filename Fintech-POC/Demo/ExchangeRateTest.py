@@ -7,11 +7,12 @@ def handler(event, context):
             params={},
             headers={"Accept":"application/json"}
         )
-        print(res.json())
-        return res.json()
+        # print(res.json())
+        print(TRANSFERWISE_KEY)
+        # return res.json()
     except BaseException as e:
         # error handling goes here
         raise(e)
-        
+
     
     return {"message": "Successfully executed"}
