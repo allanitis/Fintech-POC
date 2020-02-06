@@ -461,7 +461,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/TransferWise/TW_All.py",
-        "code": "from botocore.vendored import requests\nimport os\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"USD\",\"target\":\"EUR\"},\n            headers={\"Accept\":\"application/json\",\"Authorization\": \"Bearer {}\".format(os.environ['TRANSFERWISE_KEY'])}\n        )\n        j = res.json()\n        print(j[0]['rate'])\n        # print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\", rate: j}\n",
+        "code": "from botocore.vendored import requests\nimport os\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"USD\",\"target\":\"EUR\"},\n            headers={\"Accept\":\"application/json\",\"Authorization\": \"Bearer {}\".format(os.environ['TRANSFERWISE_KEY'])}\n        )\n        j = res.json()\n        print(j[0]['rate'])\n        # print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\", \"rates\": j}\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -954,7 +954,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1580991371754
+    "lastSave": 1580991467665
   },
   "VCS_STATE": {
     "provider": "GitHub",
