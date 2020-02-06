@@ -14,7 +14,8 @@
           "e087146c-be97-4069-8f64-d3a256f48975",
           "c02d5bb0-e1d9-47f8-9e54-ee096bd03e4d",
           "416a2575-713b-4c6c-b6e4-67151f2c627b",
-          "13fcd5a0-f108-4fc9-841c-b52d101c086f"
+          "13fcd5a0-f108-4fc9-841c-b52d101c086f",
+          "5fa1a2f4-079d-406c-811b-db0dc81d3020"
         ],
         "isRemovable": false,
         "filePath": "Fintech-POC"
@@ -241,7 +242,8 @@
           "7d5b7f8b-6872-48fc-863c-9efa2272c964",
           "ee0c7e67-b92d-434d-8dc7-7dbe03983ae6",
           "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
-          "7ba41449-2113-4088-beaf-25b31ee97f2c"
+          "7ba41449-2113-4088-beaf-25b31ee97f2c",
+          "b5594eae-d076-4035-a7d2-ccd21510bfbd"
         ],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo"
@@ -402,15 +404,97 @@
             "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
           }
         }
+      },
+      "b5594eae-d076-4035-a7d2-ccd21510bfbd": {
+        "id": "b5594eae-d076-4035-a7d2-ccd21510bfbd",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "myDemo.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/myDemo.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python2.7",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "a8bc3d34-ef03-4e71-9d01-673c7f089596": {
+            "id": "a8bc3d34-ef03-4e71-9d01-673c7f089596",
+            "name": "Unnamed event",
+            "functionId": "b5594eae-d076-4035-a7d2-ccd21510bfbd",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "5fa1a2f4-079d-406c-811b-db0dc81d3020": {
+        "id": "5fa1a2f4-079d-406c-811b-db0dc81d3020",
+        "parent": "fca60464-7700-408a-a298-238aa2a05478",
+        "name": "TransferWise",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+          "1fee5217-473d-4f20-9b61-7791d00360bf"
+        ],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/TransferWise"
+      },
+      "0d1043f5-42f6-4051-be2c-e795ecf7ddd1": {
+        "id": "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+        "parent": "5fa1a2f4-079d-406c-811b-db0dc81d3020",
+        "name": "TW_All.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/TransferWise/TW_All.py",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"USD\",\"target\":\"EUR\"},\n            headers={\"Accept\":\"application/json\",\"Authorization\": \"Bearer 10dfbb33-b207-4339-95a4-66193a761bc1\"}\n        )\n        j = res.json()\n        print(j[0]['rate'])\n        # print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python2.7",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "apigusEast1USDEURRateusdEurRateget",
+            "config": {}
+          }
+        ],
+        "testCases": {
+          "295af134-e75c-41e1-8b00-83d48147d068": {
+            "id": "295af134-e75c-41e1-8b00-83d48147d068",
+            "name": "Unnamed event",
+            "functionId": "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "1fee5217-473d-4f20-9b61-7791d00360bf": {
+        "id": "1fee5217-473d-4f20-9b61-7791d00360bf",
+        "parent": "5fa1a2f4-079d-406c-811b-db0dc81d3020",
+        "name": "__init__.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/TransferWise/__init__.py",
+        "code": ""
       }
     },
     "deletedFiles": [],
     "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
     "openFiles": [
-      "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
-      "7ba41449-2113-4088-beaf-25b31ee97f2c"
+      "0d1043f5-42f6-4051-be2c-e795ecf7ddd1"
     ],
-    "currentFileId": "7ba41449-2113-4088-beaf-25b31ee97f2c",
+    "currentFileId": "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
     "resources": {
       "apigusEast1myNewAPImyEndpointget": {
         "name": "apigusEast1myNewAPImyEndpointget",
@@ -442,6 +526,25 @@
           "snsType": 0,
           "topicDisplayName": "CC-Auth",
           "subscriptions": []
+        }
+      },
+      "apigusEast1USDEURRateusdEurRateget": {
+        "name": "apigusEast1USDEURRateusdEurRateget",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "USD-EUR-rate",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "usd-eur-rate",
+          "resourcePath": "/usd-eur-rate",
+          "restMethod": "GET",
+          "proxyIntegration": false,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "prod",
+          "mode": 0
         }
       }
     },
@@ -537,6 +640,22 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "b5594eae-d076-4035-a7d2-ccd21510bfbd",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/TransferWise",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
       }
     ],
     "packageJSON": {
@@ -571,7 +690,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1575888904480
+    "lastSave": 1580978855389
   },
   "VCS_STATE": {
     "provider": "GitHub",
