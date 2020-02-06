@@ -244,7 +244,9 @@
           "f3810efe-7b0b-4ab8-9a67-acc179bc370e",
           "7ba41449-2113-4088-beaf-25b31ee97f2c",
           "b5594eae-d076-4035-a7d2-ccd21510bfbd",
-          "cb69f748-02b6-44a7-828c-f1e9566d9482"
+          "cb69f748-02b6-44a7-828c-f1e9566d9482",
+          "6f698f18-2442-4338-9c4e-60720c2259df",
+          "7abfd5b8-917b-4967-881d-295555c6dc5e"
         ],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo"
@@ -455,7 +457,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/TransferWise/TW_All.py",
-        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"USD\",\"target\":\"EUR\"},\n            headers={\"Accept\":\"application/json\",\"Authorization\": \"Bearer 10dfbb33-b207-4339-95a4-66193a761bc1\"}\n        )\n        j = res.json()\n        print(j[0]['rate'])\n        # print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "from botocore.vendored import requests\nimport os\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"USD\",\"target\":\"EUR\"},\n            headers={\"Accept\":\"application/json\",\"Authorization\": \"Bearer {}\".format(os.environ['TRANSFERWISE_KEY'])}\n        )\n        j = res.json()\n        print(j[0]['rate'])\n        # print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -498,7 +500,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo/ExchangeRateTest.py",
-        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        # print(res.json())\n        print(TRANSFERWISE_KEY)\n        # return res.json()\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "from botocore.vendored import requests\nimport os\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        # print(res.json())\n        return res.json()['rates']['EUR']\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n\n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -513,23 +515,65 @@
             "name": "Unnamed event",
             "functionId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
             "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
-          },
-          "2743fe7c-e747-40ed-b040-067e65b1f54f": {
-            "id": "2743fe7c-e747-40ed-b040-067e65b1f54f",
+          }
+        }
+      },
+      "6f698f18-2442-4338-9c4e-60720c2259df": {
+        "id": "6f698f18-2442-4338-9c4e-60720c2259df",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "bestRateProvider.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/bestRateProvider.py",
+        "code": "from botocore.vendored import requests\nimport os\n\ndef handler(event, context):\n    rates = {}\n    try:\n        tw_res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"usd\",\"target\":\"eur\"},\n            headers={\"Accept\":\"application/json\", \"Authorization\": \"Bearer {}\".format(os.environ[\"TRANSFERWISE_KEY\"])}\n        )\n        rates['transferwise'] = tw_res.json()[0]['rate']\n\n        er_res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        # print(res.json())\n        rates['exchange_rate_api'] = er_res.json()['rates']['EUR']\n\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\", \"rates\": rates, \"best\": max(rates.items(), key= lambda x:x[1])}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "fca5adee-f3ce-487b-9b05-188770b2fdb6": {
+            "id": "fca5adee-f3ce-487b-9b05-188770b2fdb6",
             "name": "Unnamed event",
-            "functionId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
+            "functionId": "6f698f18-2442-4338-9c4e-60720c2259df",
             "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
           }
         }
+      },
+      "7abfd5b8-917b-4967-881d-295555c6dc5e": {
+        "id": "7abfd5b8-917b-4967-881d-295555c6dc5e",
+        "parent": "416a2575-713b-4c6c-b6e4-67151f2c627b",
+        "name": "CurrencyCloud_auth.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Fintech-POC/Demo/CurrencyCloud_auth.py",
+        "code": "def handler(event, context):\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
       }
     },
     "deletedFiles": [],
     "rootNode": "fca60464-7700-408a-a298-238aa2a05478",
     "openFiles": [
       "0d1043f5-42f6-4051-be2c-e795ecf7ddd1",
-      "cb69f748-02b6-44a7-828c-f1e9566d9482"
+      "cb69f748-02b6-44a7-828c-f1e9566d9482",
+      "6f698f18-2442-4338-9c4e-60720c2259df",
+      "7abfd5b8-917b-4967-881d-295555c6dc5e"
     ],
-    "currentFileId": "cb69f748-02b6-44a7-828c-f1e9566d9482",
+    "currentFileId": "6f698f18-2442-4338-9c4e-60720c2259df",
     "resources": {
       "snsusEast1ccauthtoken": {
         "name": "snsusEast1ccauthtoken",
@@ -703,7 +747,23 @@
       {
         "lambdaId": "all",
         "varKey": "TRANSFERWISE_KEY",
-        "varValue": "MY_KEY",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "6f698f18-2442-4338-9c4e-60720c2259df",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      },
+      {
+        "lambdaId": "7abfd5b8-917b-4967-881d-295555c6dc5e",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/Fintech-POC/Demo",
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
@@ -741,7 +801,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1580989458849
+    "lastSave": 1580990383171
   },
   "VCS_STATE": {
     "provider": "GitHub",

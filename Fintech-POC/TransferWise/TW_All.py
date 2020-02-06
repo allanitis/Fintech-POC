@@ -1,11 +1,12 @@
 from botocore.vendored import requests
+import os
 
 def handler(event, context):
     try:
         res = requests.get(
             "https://api.sandbox.transferwise.tech/v1/rates",
             params={"source":"USD","target":"EUR"},
-            headers={"Accept":"application/json","Authorization": "Bearer 10dfbb33-b207-4339-95a4-66193a761bc1"}
+            headers={"Accept":"application/json","Authorization": "Bearer {}".format(os.environ['TRANSFERWISE_KEY'])}
         )
         j = res.json()
         print(j[0]['rate'])

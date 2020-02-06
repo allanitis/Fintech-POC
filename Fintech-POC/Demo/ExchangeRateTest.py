@@ -1,4 +1,5 @@
 from botocore.vendored import requests
+import os
 
 def handler(event, context):
     try:
@@ -8,8 +9,7 @@ def handler(event, context):
             headers={"Accept":"application/json"}
         )
         # print(res.json())
-        print(TRANSFERWISE_KEY)
-        # return res.json()
+        return res.json()['rates']['EUR']
     except BaseException as e:
         # error handling goes here
         raise(e)
