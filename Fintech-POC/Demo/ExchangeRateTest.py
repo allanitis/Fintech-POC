@@ -8,6 +8,7 @@ def handler(event, context):
             headers={"Accept":"application/json"}
         )
         print(res.json())
+        return res.json()
     except BaseException as e:
         # error handling goes here
         raise(e)

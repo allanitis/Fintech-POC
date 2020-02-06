@@ -498,7 +498,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "Fintech-POC/Demo/ExchangeRateTest.py",
-        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "from botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.get(\n            \"https://api.exchangerate-api.com/v4/latest/{}\".format(\"usd\"),\n            params={},\n            headers={\"Accept\":\"application/json\"}\n        )\n        print(res.json())\n        return res.json()\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python2.7",
           "handler": "handler",
@@ -733,7 +733,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1580988601155
+    "lastSave": 1580988699616
   },
   "VCS_STATE": {
     "provider": "GitHub",
