@@ -15,4 +15,4 @@ def handler(event, context):
         # error handling goes here
         raise(e)
     
-    return {"message": "Successfully executed"}
+    return {"message": "Successfully executed", rate: j}
