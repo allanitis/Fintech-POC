@@ -1,3 +1,5 @@
+import boto3
+s3 = boto3.client("s3")
 from botocore.vendored import requests
 import CC_Auth
 
